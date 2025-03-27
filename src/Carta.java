@@ -28,7 +28,7 @@ public class Carta {
         lblCarta.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                JOptionPane.showMessageDialog(null, getPinta());
+                JOptionPane.showMessageDialog(null, getNombre() + " de " + getPinta());
             }
         });
             
@@ -47,5 +47,11 @@ public class Carta {
         }
     }
 
-
+    public NombreCarta getNombre() {
+        int residuo = indice % 13;
+        if (residuo == 0) {
+            residuo = 13;
+        }
+        return NombreCarta.values()[residuo - 1];
+    }
 }

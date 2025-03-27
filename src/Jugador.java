@@ -20,12 +20,43 @@ public class Jugador {
     public void mostrar(JPanel pnl) {
         pnl.removeAll();
         
-        int posicion =  MARGEN;
+        int posicion =  MARGEN + (TOTAL_CARTAS - 1) * DISTANCIA;
         for (Carta carta : cartas) {
             carta.mostrar(pnl, posicion, MARGEN);
-            posicion += DISTANCIA;
+            posicion -= DISTANCIA;
         }
 
         pnl.repaint();
+    }
+
+    public String getGrupos() {
+        String mensaje = "No se encontraron grupos";
+
+        int[] contadores = new int[NombreCarta.values().length];
+        for (Carta carta : cartas) {
+            contadores[carta.getNombre().ordinal()]++;
+        }
+
+        
+        boolean hayGrupo = false;
+        for (int contador : contadores) {
+            if (contador >= 2) {
+                hayGrupo = true;
+                break;
+            }
+        }
+
+        if (hayGrupo) {
+            mensaje = "Se encontraron los siguientes grupos: \n";
+            int fila=0;
+            for (int contador : contadores) {
+                if (contador >= 2) {
+                mensaje += Grupo.values()[contador]+ " de " + NombreCarta.values()[fila] + "\n";
+                }
+                fila ++;
+            }
+
+        return mensaje;
+
     }
 }
